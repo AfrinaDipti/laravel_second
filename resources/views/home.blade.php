@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header">Dashboard<a href="" data-toggle="modal" data-target="#exampleModal" class="btn btn-danger btn-sm " style="float: right;">Add New</a></div>
 
@@ -15,16 +15,35 @@
                     @endif
 
                     <a href="{{ route('all.posts') }}">All Posts</a>
-
-                    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+                    @php
+                    $post=App\Post::all();
+                    @endphp
+                    <table class="table table-dark">
+   <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Author</th>
+      <th scope="col">Tags</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+  @foreach($post as $row)
+    <tr>
+      <th scope="row">{{ $row->id }}</th>
+      <td>{{ $row->title }}</td>
+      <td>{{ $row->author }}</td>
+      <td>{{ $row->tag }}</td>
+      <td>
+        <a href="{{ URL::to('edit-post/'.$row->id) }}" class="btn btn-sm btn-info">Edit</a>
+        <a href="{{ URL::to('delete-post/'.$row->id) }}" class="btn btn-sm btn-danger" id="delete">Delete</a>
+      </td>
+    </tr>
+   @endforeach
+  </tbody>
+</table>
+                   
                 </div>
             </div>
         </div>
@@ -41,6 +60,16 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+
+       @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
       <form action="{{ url('insert-post') }}" method="POST">
         @csrf
       <div class="modal-body">

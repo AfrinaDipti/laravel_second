@@ -33,3 +33,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/insert-post','PostController@store');
 Route::get('/all-post','PostController@AllPost')->name('all.posts');
+Route::get('/delete-post/{id}','PostController@Delete');
+Route::get('/edit-post/{id}','PostController@Edit');
+Route::post('/update-post/{id}','PostController@Update');
