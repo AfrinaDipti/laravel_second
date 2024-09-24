@@ -68,8 +68,14 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
+                                    
+                                    <a class="nav-link" href="{{ route('password.change') }}">{{ __('Password Change') }}</a>
+
+                                    <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
+                                
                                 </div>
                             </li>
+
                         @endguest
                     </ul>
                 </div>
